@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carte Mentale Interactive - Subjonctif Présent</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gojs/2.3.12/go.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    #myDiagramDiv {
+      flex: 1;
+      background-color: #ffffff;
+    }
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>Carte Mentale Interactive - Subjonctif Présent</header>
+  <div id="myDiagramDiv"></div>
+  <footer>Conçu par M. Mundi pour l'apprentissage vivant de la grammaire française</footer>
+
+  <script>
+    const $ = go.GraphObject.make;
+    const diagram = $(go.Diagram, "myDiagramDiv", {
+      "undoManager.isEnabled": true,
+      layout: $(go.TreeLayout, { angle: 90, layerSpacing: 40 })
+    });
+
+    diagram.nodeTemplate = $(go.Node, "Auto",
+      $(go.Shape, "RoundedRectangle",
+        {
+          fill: "#dbeeff",
+          stroke: "#007bff",
+          strokeWidth: 1.5,
+          parameter1: 10
+        },
+        new go.Binding("fill", "color")
+      ),
+      $(go.TextBlock,
+        {
+          margin: 10,
+          font: "bold 13px Segoe UI",
+          wrap: go.TextBlock.WrapFit,
+          width: 200
+        },
+        new go.Binding("text", "key")
+      )
+    );
+
+    diagram.model = new go.TreeModel([
+      { key: "Subjonctif Présent", color: "#6fa8dc" },
+      { key: "Doute / Incertitude", parent: "Subjonctif Présent", color: "#b6d7a8" },
+      { key: "Je doute qu'il soit...", parent: "Doute / Incertitude" },
+      { key: "Il n'est pas certain que...", parent: "Doute / Incertitude" },
+      { key: "Désir / Volonté", parent: "Subjonctif Présent", color: "#f9cb9c" },
+      { key: "Je veux que tu fasses...", parent: "Désir / Volonté" },
+      { key: "Souhaiter que...", parent: "Désir / Volonté" },
+      { key: "Émotion / Obligation", parent: "Subjonctif Présent", color: "#ffe599" },
+      { key: "Il faut que...", parent: "Émotion / Obligation" },
+      { key: "Je suis heureux que...", parent: "Émotion / Obligation" },
+      { key: "Jugement / Subjectivité", parent: "Subjonctif Présent", color: "#c9daf8" },
+      { key: "Il est bon que...", parent: "Jugement / Subjectivité" },
+      { key: "Il est possible que...", parent: "Jugement / Subjectivité" },
+      { key: "Inexistence / Recherche", parent: "Subjonctif Présent", color: "#e6b8af" },
+      { key: "Il n'y a personne qui...", parent: "Inexistence / Recherche" },
+      { key: "Je cherche quelqu'un qui...", parent: "Inexistence / Recherche" }
+    ]);
+  </script>
+</body>
+</html>
